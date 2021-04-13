@@ -9,16 +9,26 @@ const initialState = {
 function heroReducer (state = initialState, action) {
   switch (action.type) {
     case ACTION_TYPES.CREATE_HERO_REQUEST: {
-      /* isFetching: true */
-      return;
+      return {
+        ...state,
+        isFetching: true,
+      };
     }
     case ACTION_TYPES.CREATE_HERO_SUCCESS: {
-      /* heroes = heroes + 1 hero */
-      return;
+      const { values: hero } = action;
+      return {
+        ...state,
+        isFetching: false,
+        heroes: [...state.heroes, hero],
+      };
     }
     case ACTION_TYPES.CREATE_HERO_ERROR: {
-      /* error */
-      return;
+      const { error } = action;
+      return {
+        ...state,
+        isFetching: false,
+        error,
+      };
     }
 
     default:
