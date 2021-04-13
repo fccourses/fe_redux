@@ -33,7 +33,7 @@ const TaskList = props => {
   );
 };
 
-const mapStateToProps = ({ tasks }) => ({ tasks });
+const mapStateToProps = ({ task: { tasks } }) => ({ tasks });
 const mapDispatchToProps = dispatch => ({
   deleteAction: id => dispatch(TaskCreators.deleteTask(id)),
   updateAction: ({ id, values }) =>

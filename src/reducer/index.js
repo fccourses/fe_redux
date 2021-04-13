@@ -1,85 +1,33 @@
-import ACTION_TYPES from '../actions/actionTypes';
+import { combineReducers } from 'redux';
+import counterReducer from './counterReducer';
+import heroReducer from './heroReducer';
+import taskReducer from './taskReducer';
 
-const initialState = {
-  // counter
-  count: 0,
-  step: 1,
-  // task list
-  tasks: [
-    {
-      id: 0,
-      body: 'test task',
-      isDone: false,
-    },
-  ],
+const rootReducer = combineReducers({
+  counter: counterReducer,
+  task: taskReducer,
+  hero: heroReducer,
+});
+
+export default rootReducer;
+
+const prev = {
+  step: 0,
+  count: 1,
+  heroes: [],
+  tasks: [],
 };
 
-let serial = 1;
-
-function reducer (state = initialState, action) {
-  switch (action.type) {
-    /* TASK */
-    case ACTION_TYPES.CREATE_TASK: {
-      const { tasks } = state;
-      const { values: task } = action;
-
-      const newTasks = [...tasks, { ...task, id: serial++ }];
-
-      return {
-        ...state,
-        tasks: newTasks,
-      };
-    }
-    case ACTION_TYPES.DELETE_TASK: {
-      const { id } = action;
-      const { tasks } = state;
-
-      return {
-        ...state,
-        tasks: tasks.filter(task => task.id !== id),
-      };
-    }
-    case ACTION_TYPES.UPDATE_TASK: {
-      const { id, values } = action;
-      const { tasks } = state;
-
-      const newTasks = [...tasks];
-      const taskIndex = newTasks.findIndex(task => task.id === id);
-      const task = newTasks[taskIndex];
-
-      newTasks[taskIndex] = { ...task, ...values };
-
-      return {
-        ...state,
-        tasks: newTasks,
-      };
-    }
-    /* COUNTER */
-    case ACTION_TYPES.INCREMENT: {
-      const { count, step } = state;
-      return {
-        ...state,
-        count: count + step,
-      };
-    }
-    case ACTION_TYPES.DECREMENT: {
-      const { count, step } = state;
-      return {
-        ...state,
-        count: count - step,
-      };
-    }
-    case ACTION_TYPES.SET_STEP: {
-      const { newStep: step } = action;
-      return {
-        ...state,
-        step,
-      };
-    }
-    default: {
-      return state;
-    }
-  }
-}
-
-export default reducer;
+const now = {
+  counter: {
+    step: 0,
+    count: 1,
+  },
+  task: {
+    tasks: [],
+  },
+  hero: {
+    heroes: [],
+    error: null,
+  },
+};
