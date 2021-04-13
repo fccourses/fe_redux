@@ -15,13 +15,15 @@ ReactDOM.render(
 );
 
 /* 
-  REDUX:
-    store - хранилище. js object
+  REDUX: - core
+    store - хранилище. js object 
     dispatch - function которая отправляет action в reducer
-    reducer - pure func; (state, action) => state
+    reducer - pure func; (state, action) => newState
     action - events. { type: string, ...bag }
 
   REACT-REDUX:
-    connect - HOC. подписывать компонент на измения store
+    <Provider store={store} /> - store in react
+    connect(mStP, mDtP)() - HOC. подписывать компонент на измения store
     mapStateToProps - func, что именно взять из store
+    mapDispatchToProps - func, dispatch methods -> props
 */

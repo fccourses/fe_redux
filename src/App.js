@@ -1,24 +1,17 @@
-import { connect } from 'react-redux';
-import * as ActionCreators from './actions';
+import Counter from './components/Counter';
+import TaskForm from './components/TaskForm';
+import TaskList from './components/TaskList';
 
-function App (props) {
-  const { step, count, dispatch } = props;
-
-  const increment = () => dispatch(ActionCreators.increment());
-  const decrement = () => dispatch(ActionCreators.decrement());
-  const onChange = ({ target: { value } }) =>
-    dispatch(ActionCreators.setStep(Number(value)));
-
+const App = props => {
   return (
     <div>
-      <h1>Current count: {count}</h1>
-      <input type='number' value={step} onChange={onChange} />
-      <button onClick={decrement}>-</button>
-      <button onClick={increment}>+</button>
+      <Counter />
+      <hr />
+      <TaskForm />
+      <TaskList />
+      <hr />
     </div>
   );
-}
+};
 
-const mapStateToProps = state => ({ count: state.count });
-
-export default connect(mapStateToProps)(App);
+export default App;
