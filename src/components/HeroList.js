@@ -1,8 +1,16 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { connect } from 'react-redux';
+import * as HeroActionCreators from '../actions/heroCreators';
 
 const HeroList = props => {
-  const { heroes, isFetching, error } = props;
+  const { heroes, isFetching, error, getHeroesRequst } = props;
+
+  const loadMore = () => getHeroesRequst({ offset: heroes.length });
+
+  useEffect(() => {
+    loadMore();
+  }, []);
+
   return (
     <section>
       <h1>Hero List</h1>
@@ -13,10 +21,15 @@ const HeroList = props => {
           <li key={hero.id}>{JSON.stringify(hero, null, 8)}</li>
         ))}
       </ul>
+      <button onClick={loadMore}>Load more Heroes!</button>
     </section>
   );
 };
 
 const mapStateToProps = ({ hero }) => hero;
+const mapDispatchToProps = dispatch => ({
+  getHeroesRequst: ({ limit, offset } = {}) =>
+    dispatch(HeroActionCreators.getHeroRequest({ offset, limit })),
+});
 
-export default connect(mapStateToProps)(HeroList);
+export default connect(mapStateToProps, mapDispatchToProps)(HeroList);

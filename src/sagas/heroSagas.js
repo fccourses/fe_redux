@@ -9,9 +9,21 @@ export function * createHeroSaga (action) {
         data: [hero],
       },
     } = yield API.createHero(action.values); //data -> data
-    
+
     yield put(HeroActionCreators.createHeroSuccess(hero));
   } catch (error) {
     yield put(HeroActionCreators.createHeroError(error));
+  }
+}
+
+export function * getHeroesSaga (action) {
+  try {
+    const {
+      data: { data: heroes },
+    } = yield API.getHeroes(action.payload);
+
+    yield put(HeroActionCreators.getHeroSuccess({ heroes }));
+  } catch (error) {
+    yield put(HeroActionCreators.getHeroError({ error }));
   }
 }
