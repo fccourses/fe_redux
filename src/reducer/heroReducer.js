@@ -19,6 +19,7 @@ function heroReducer (state = initialState, action) {
       return {
         ...state,
         isFetching: false,
+        error: null,
         heroes: [...state.heroes, hero],
       };
     }
