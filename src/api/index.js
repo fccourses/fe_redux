@@ -4,4 +4,7 @@ const httpClient = axios.create({
   baseURL: 'http://localhost:3000/api',
 });
 
-export const createHero = data => httpClient.post('/superheroes', data);
+export const createHero = data => {
+  const responsePromise = httpClient.post('/superheroes', data);
+  return responsePromise;
+};

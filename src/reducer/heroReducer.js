@@ -16,11 +16,12 @@ function heroReducer (state = initialState, action) {
     }
     case ACTION_TYPES.CREATE_HERO_SUCCESS: {
       const { values: hero } = action;
+      const { heroes } = state;
       return {
         ...state,
         isFetching: false,
         error: null,
-        heroes: [...state.heroes, hero],
+        heroes: [...heroes, hero],
       };
     }
     case ACTION_TYPES.CREATE_HERO_ERROR: {
